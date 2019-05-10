@@ -4,10 +4,11 @@ RUN apk --no-cache add git
 
 WORKDIR /app
 
-COPY . .
+COPY ./saytext/server .
+COPY ./go.mod .
 
 RUN go mod download
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o say
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o sayserver
 
 
 FROM alpine:latest
@@ -18,6 +19,6 @@ RUN mkdir /app
 WORKDIR /app
 EXPOSE 8080
 
-COPY --from=builder /app/say .
+COPY --from=builder /app/sayserver .
 
 CMD ["./say"]
