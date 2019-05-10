@@ -7,7 +7,7 @@ WORKDIR /app
 COPY . .
 
 RUN go mod download
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o say
 
 
 FROM alpine:latest
@@ -18,6 +18,6 @@ RUN mkdir /app
 WORKDIR /app
 EXPOSE 8080
 
-COPY --from=builder /app/app .
+COPY --from=builder /app/say .
 
-CMD ["./app"]
+CMD ["./say"]
