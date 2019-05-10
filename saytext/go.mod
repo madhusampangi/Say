@@ -1,4 +1,4 @@
-module github.com/madhusampangi/Say
+module github.com/madhusampangi/Say/saytext
 
 go 1.12
 
