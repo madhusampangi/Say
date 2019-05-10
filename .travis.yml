@@ -4,6 +4,8 @@ services:
 
 before_install:
   - docker build -t madhusampangi/say -f Dockerfile .
+script:
+  - docker ps
 
 deploy:
   provider: elasticbeanstalk
