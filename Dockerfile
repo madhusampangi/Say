@@ -5,7 +5,7 @@ RUN apk --no-cache add git
 WORKDIR /app
 
 COPY ./saytext/server .
-COPY ./saytext/go.mod .
+COPY ./go.mod .
 
 RUN go mod download
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o sayserver
