@@ -12,7 +12,7 @@ import (
 
 	"google.golang.org/grpc"
 
-	pb "github.com/madhusampangi/Say/saytext/proto"
+	pb "github.com/madhusampangi/Say/proto"
 )
 
 func main() {
