@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net"
 	"os/exec"
 
@@ -11,8 +12,7 @@ import (
 
 	"google.golang.org/grpc"
 
-	pb "github.com/madhusampangi/Say/api"
-	"github.com/Sirupsen/logrus"
+	pb "github.com/madhusampangi/say/api"
 )
 
 func main() {
@@ -21,15 +21,15 @@ func main() {
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
 
 	if err != nil {
-		logrus.Fatalf("Could not listen to port  %d : %v", *port, err)
+		log.Fatalf("Could not listen to port  %d : %v", *port, err)
 	}
-	logrus.Infof("Listening to port %d", *port)
+	log.Printf("Listening to port %d", *port)
 
 	s := grpc.NewServer()
 	pb.RegisterTextToSpeechServer(s, server{})
 	err = s.Serve(listener)
 	if err != nil {
-		logrus.Fatalf("Could not serve : %v", err)
+		log.Fatalf("Could not serve : %v", err)
 	}
 }
 

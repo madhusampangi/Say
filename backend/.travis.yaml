@@ -1,0 +1,16 @@
+sudo: required
+services: 
+  - docker
+
+before_install:
+  - docker build -t madhusampangi/say -f Dockerfile .
+
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-south-1"
+  app: "Say"
+  env: "SayText"
+  bucket_name: "elasticbeanstalk-ap-south-1-133432355865"
+  bucket_path: "Say"
+  on:
+      branch: master

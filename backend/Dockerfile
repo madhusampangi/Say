@@ -1,6 +1,23 @@
-FROM alpine
+FROM golang:alpine as builder
+
+RUN apk --no-cache add git
+
+WORKDIR /app
+
+COPY . .
+
+RUN go mod download
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app
+
+
+FROM alpine:latest
 
 RUN apk update && apk add flite
-ADD app /app
+
+RUN mkdir /app
+WORKDIR /app
 EXPOSE 8080
-ENTRYPOINT [ "/app" ]
+
+COPY --from=builder /app/app .
+
+CMD ["./app"]
